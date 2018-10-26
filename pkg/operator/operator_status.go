@@ -71,14 +71,14 @@ func defaultOperatorStatus() *statusv1.ClusterOperator {
 //message: available and not waiting for a change
 //status: 'False'
 //	 type: Progressing
-func ApplyClusterOperatorStatus(console v1alpha1.Console) error {
+func ApplyClusterOperatorStatus(console *v1alpha1.Console) error {
 	status := defaultOperatorStatus()
 
 	// get or create, but don't return unless error.
 	// then do the updates.
 	if err := sdk.Get(status); errors.IsNotFound(err) {
 		if sdk.Create(status); err != nil {
-			return nil, err
+			return err
 		}
 	}
 	return nil
